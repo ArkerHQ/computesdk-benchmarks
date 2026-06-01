@@ -29,7 +29,7 @@ export async function runStaggeredBenchmark(config: StaggeredConfig): Promise<St
     };
   }
 
-  const compute = config.createCompute();
+  const compute = await config.createCompute();
   console.log(`\n--- Staggered Benchmark: ${name} (${concurrency} sandboxes, ${staggerDelayMs}ms apart) ---`);
 
   const wallStart = performance.now();

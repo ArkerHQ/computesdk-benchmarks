@@ -7,8 +7,13 @@ export interface ProviderConfig {
   timeout?: number;
   /** Environment variables that must all be set to run this benchmark */
   requiredEnvVars: string[];
-  /** Creates a compute instance — either direct SDK or gateway-based */
-  createCompute: () => any;
+  /**
+   * Creates a compute instance — either direct SDK or gateway-based.
+   * May be async (provider SDK barrels are dynamically imported), so call
+   * sites must `await` the result. `await` on a non-promise is a no-op, so
+   * sync implementations remain valid.
+   */
+  createCompute: () => any | Promise<any>;
   /** Options passed to sandbox.create() (e.g. { image: 'node:20' }) */
   sandboxOptions?: Record<string, any>;
   /** Timeout for sandbox.destroy() in ms (default: 15000) */

@@ -18,7 +18,7 @@ export async function runBenchmark(config: ProviderConfig): Promise<BenchmarkRes
     };
   }
 
-  const compute = config.createCompute();
+  const compute = await config.createCompute();
   const results: TimingResult[] = [];
   const runNonce = randomUUID();
   const reuseDetector = {

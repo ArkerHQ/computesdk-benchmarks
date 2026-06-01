@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "bench": "tsx src/run.ts",
+    "export:arker": "tsx src/export-arker.ts",
+    "build:vendor-arker": "tsc -p vendor/computesdk-arker/tsconfig.json",
     "bench:sequential": "tsx src/run.ts --mode sequential",
     "bench:staggered": "tsx src/run.ts --mode staggered",
     "bench:burst": "tsx src/run.ts --mode burst",
@@ -48,9 +50,14 @@
     "generate-browser-svg": "tsx src/browser/generate-svg.ts",
     "generate-pricing-svg": "tsx src/sandbox/generate-pricing-svg.ts"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
+    "@arker-ai/sdk": "0.3.0",
     "@computesdk/anchorbrowser": "^0.2.0",
     "@computesdk/archil": "^0.3.0",
+    "@computesdk/arker": "file:vendor/computesdk-arker",
     "@computesdk/beam": "^0.1.1",
     "@computesdk/blaxel": "^1.6.7",
     "@computesdk/browserbase": "^0.3.0",

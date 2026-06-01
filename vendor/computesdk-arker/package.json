@@ -1,0 +1,17 @@
+{
+  "name": "@computesdk/arker",
+  "version": "0.0.1-vendored",
+  "description": "VENDORED placeholder ComputeSDK provider for Arker. See README — replace with the published @computesdk/arker once it ships.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@arker-ai/sdk": "0.3.0"
+  }
+}

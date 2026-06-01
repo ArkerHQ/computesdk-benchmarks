@@ -26,7 +26,7 @@ export async function runConcurrentBenchmark(config: ConcurrentConfig): Promise<
     };
   }
 
-  const compute = config.createCompute();
+  const compute = await config.createCompute();
   console.log(`\n--- Concurrent Benchmark: ${name} (${concurrency} sandboxes) ---`);
 
   const wallStart = performance.now();
