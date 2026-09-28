@@ -88,6 +88,19 @@
     "dotenv": "^17.4.0",
     "playwright-core": "^1.59.1"
   },
+  "overrides": {
+    "@opentelemetry/core@^2.0.0": "2.9.0",
+    "@opentelemetry/propagator-jaeger@^2.0.0": "2.9.0",
+    "@hey-api/json-schema-ref-parser": {
+      "js-yaml": "4.3.2"
+    },
+    "@opentelemetry/otlp-transformer": {
+      "protobufjs": "8.8.0"
+    },
+    "blessed-contrib": {
+      "lodash": "4.18.1"
+    }
+  },
   "devDependencies": {
     "@types/node": "^25.5.0",
     "tsx": "^4.21.0",
