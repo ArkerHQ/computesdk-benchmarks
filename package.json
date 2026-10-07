@@ -92,5 +92,16 @@
     "@types/node": "^25.5.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
+  },
+  "overrides": {
+    "@hey-api/json-schema-ref-parser": {
+      "js-yaml": "4.3.2"
+    },
+    "guarded-fetch": {
+      "undici": "7.29.1"
+    },
+    "@opentelemetry/sdk-node": {
+      "@opentelemetry/propagator-jaeger": "2.9.0"
+    }
   }
 }
