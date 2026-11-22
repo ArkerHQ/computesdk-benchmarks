@@ -176,7 +176,7 @@ elif [ "$CG_FSTYPE" = "tmpfs" ]; then
 else
   bad "no cgroup filesystem at /sys/fs/cgroup (fstype: ${CG_FSTYPE:-unknown})"
 fi
-if [ -w /sys/fs/cgroup ]; then info "/sys/fs/cgroup is writable"
+if [ -w /sys/fs/cgroup ]; then ok "/sys/fs/cgroup is writable"
 else warn "/sys/fs/cgroup not writable (need a delegated slice for rootless; fully-ro breaks dockerd)"; fi
 
 # ------------------------------------------------------------- devices -----
