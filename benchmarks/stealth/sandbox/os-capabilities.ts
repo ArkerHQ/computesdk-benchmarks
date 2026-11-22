@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { stripVTControlCharacters } from 'node:util';
 import { computeStats } from '../src/util/stats.js';
 
 // ---------------------------------------------------------------------------
@@ -202,8 +203,8 @@ export interface SerializedOsCapabilitiesBenchmarkResult {
 
 /**
  * Parse the preflight script's output. Verdict lines are `PASS <text>`,
- * `WARN <text>`, `FAIL <text>` (colors only print on a tty, which runCommand
- * never is), `.... <info>` and `== <section> ==` decorations are ignored.
+ * `WARN <text>`, `FAIL <text>`. Providers may execute commands through a PTY;
+ * terminal styling, `.... <info>` and section decorations are ignored.
  */
 export function parsePreflightOutput(output: string, exitCode: number): ParsedPreflight {
   const parsed: ParsedPreflight = {
@@ -219,7 +220,7 @@ export function parsePreflightOutput(output: string, exitCode: number): ParsedPr
   };
 
   const passLines: string[] = [];
-  for (const rawLine of output.split('\n')) {
+  for (const rawLine of stripVTControlCharacters(output).split('\n')) {
     const line = rawLine.trim();
     if (line.startsWith('PASS ')) {
       parsed.passCount += 1;
