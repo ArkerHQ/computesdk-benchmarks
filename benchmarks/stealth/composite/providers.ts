@@ -46,9 +46,11 @@ const SANDBOX_PROVIDERS = [
   'novita',
   // 'opencomputer', // parked — re-activate with the sandbox registry entry
   'railway',
+  'run-cloud',
   'sandbox0',
   'sail',
   'sprites',
+  'styne',
   'superserve',
   'luxor',
   'tensorlake',

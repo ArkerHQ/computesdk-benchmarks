@@ -19,6 +19,7 @@ import { PROVIDER_SIZE_OPTIONS } from './sizes.js';
 const SUPERSERVE_CI_TEMPLATE_ID = '96d65ab3-926a-45f5-9060-2fd3632d364c';
 
 export const LARGE_RESOURCE_OPTIONS: Record<string, Record<string, any>> = {
+  'run-cloud': { cpu: 8, memory: 16384 },
   // archil maps vcpus -> vcpuCount, memoryMiB -> memSizeMiB on the VM create
   // (persistent mode only; ignored on the shared-disk exec path).
   archil:       { vcpus: 8, memoryMiB: 16384 },
@@ -66,6 +67,8 @@ export const LARGE_RESOURCE_OPTIONS: Record<string, Record<string, any>> = {
   sail:         { sizeClass: 'xl' },                         // xl = 8 vCPU / 16 GiB
   freestyle:    { sizeClass: 'xl' },                         // applied by computesdk#1075; older adapters run 4/8
   railway:      { resources: { cpu: 8, memoryGB: 16 } },
+  // Styne `large` is 8 vCPU / 16 GiB; raise the default 300s lifetime.
+  styne:        { size: 'large', timeout: 900_000 },
 };
 
 export function getSandboxOptionsWithResources(providerName: string, baseOptions?: Record<string, any>): Record<string, any> {
@@ -86,6 +89,9 @@ export function getCiSandboxOptions(
   // Briq refuses create-time timeout.
   if (provider === 'briq') delete options.timeout;
   else options.timeout = timeoutMs;
+  if (provider === 'run-cloud' && purpose === 'deadline') {
+    options.onTimeout = 'destroy';
+  }
   // Deadline check: the box must be gone after timeoutMs. Superserve's
   // default is pause-on-timeout (exec keeps working), which reads as
   // "deadline not honored"; autoDeleteSeconds: 0 hard-deletes it instead.

@@ -51,6 +51,7 @@ const allTiers = (
  */
 export const PROVIDER_SIZE_OPTIONS: Record<string, Partial<Record<MarketSize, Record<string, any> | null>>> = {
   // --- raw cpu/memory parameters: all four tiers ---
+  'run-cloud': allTiers((c, m) => ({ cpu: c, memory: m })),
   // Modal: 1 core = 2 vCPUs, so cpus/2 (fractional cores are supported).
   modal: allTiers((c, m) => ({ cpu: c / 2, cpuLimit: c / 2, memoryMiB: m, templateId: 'node:22' })),
   // diskSizeGb: default disk is small; 20 GiB headroom is harmless for cpu.
@@ -72,7 +73,6 @@ export const PROVIDER_SIZE_OPTIONS: Record<string, Partial<Record<MarketSize, Re
     large: { vcpus: 4, memMiB: 8192 },
     xlarge: { vcpus: 8, memMiB: 16384 },
   },
-  // RunCloud accepts cpu (cores) / memory (MiB) per sandbox.
   runloop: allTiers((c, m) => ({
     launch_parameters: { resource_size_request: 'CUSTOM_SIZE', custom_cpu_cores: c, custom_gb_memory: m / 1024 },
   })),
@@ -202,6 +202,9 @@ export const PROVIDER_SIZE_OPTIONS: Record<string, Partial<Record<MarketSize, Re
     large: { sizeClass: 'lg' },
     xlarge: { sizeClass: 'xl' },
   },
+  // Styne sizes small/default/large are 2/4, 4/8 and 8/16 (vCPU/GiB); it has
+  // no 1-vCPU size, so market small is unsupported.
+  styne: { small: null, medium: { size: 'small' }, large: { size: 'default' }, xlarge: { size: 'large' } },
   // Novita sizes at template build (cpuCount/memoryMB, E2B-compatible); tiers
   // are per-account setup (size-templates.ts). Raise the default 300s
   // lifetime — same backstop pattern as blaxel.
